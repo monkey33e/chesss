@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI 학습 가이드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Noto Sans KR', sans-serif; }
+    .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .tab-active { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); }
+    .content-section { display: none; }
+    .content-section.active { display: block; animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .modal-overlay { backdrop-filter: blur(5px); }
+    .chart-bar { transition: all 0.8s ease; }
+    .chart-bar:hover { opacity: 0.8; }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Header -->
+  <header class="gradient-bg text-white py-16">
+    <div class="container mx-auto px-6 text-center">
+      <h1 class="text-5xl font-bold mb-4">🤖 AI 학습 가이드</h1>
+      <p class="text-xl opacity-90">인공지능의 모든 것을 한 곳에서 배워보세요</p>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-6">
+      <div class="flex justify-center space-x-8">
+        <button onclick="showSection('learning')" id="tab-learning" class="tab-button py-4 px-8 font-semibold text-gray-600 border-b-3 border-transparent hover:text-indigo-600 transition-colors">
+          📚 학습 방법
+        </button>
+        <button onclick="showSection('models')" id="tab-models" class="tab-button py-4 px-8 font-semibold text-gray-600 border-b-3 border-transparent hover:text-indigo-600 transition-colors">
+          🧠 AI 모델 종류
+        </button>
+        <button onclick="showSection('history')" id="tab-history" class="tab-button py-4 px-8 font-semibold text-gray-600 border-b-3 border-transparent hover:text-indigo-600 transition-colors">
+          📜 AI 역사
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-6 py-12">
+    <!-- Learning Methods Section -->
+    <section id="learning-section" class="content-section active">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">AI 학습 방법</h2>
+        <p class="text-xl text-gray-600">다양한 AI 학습 패러다임을 알아보세요</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('supervised')">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">지도 학습</h3>
+          <p class="text-gray-600 mb-4">정답이 있는 데이터로 학습하는 방법</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 분류 (Classification)</li>
+            <li>• 회귀 (Regression)</li>
+            <li>• 예측 모델링</li>
+            <li>• 패턴 인식</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('unsupervised')">
+          <div class="text-4xl mb-4">🔍</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">비지도 학습</h3>
+          <p class="text-gray-600 mb-4">정답 없이 데이터의 패턴을 찾는 방법</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 클러스터링</li>
+            <li>• 차원 축소</li>
+            <li>• 이상 탐지</li>
+            <li>• 연관 규칙</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('reinforcement')">
+          <div class="text-4xl mb-4">🎮</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">강화 학습</h3>
+          <p class="text-gray-600 mb-4">보상을 통해 최적의 행동을 학습</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• Q-Learning</li>
+            <li>• 정책 기반 학습</li>
+            <li>• 게임 AI</li>
+            <li>• 로봇 제어</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('transfer')">
+          <div class="text-4xl mb-4">🔄</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">전이 학습</h3>
+          <p class="text-gray-600 mb-4">기존 모델의 지식을 새로운 작업에 활용</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 사전 훈련된 모델</li>
+            <li>• 파인 튜닝</li>
+            <li>• 도메인 적응</li>
+            <li>• 효율적 학습</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('semisupervised')">
+          <div class="text-4xl mb-4">🎭</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">준지도 학습</h3>
+          <p class="text-gray-600 mb-4">라벨된 데이터와 라벨되지 않은 데이터를 함께 사용</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 자기 훈련</li>
+            <li>• 공동 훈련</li>
+            <li>• 그래프 기반 방법</li>
+            <li>• 생성 모델</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('meta')">
+          <div class="text-4xl mb-4">🧩</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">메타 학습</h3>
+          <p class="text-gray-600 mb-4">학습하는 방법을 학습하는 기법</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• Few-shot Learning</li>
+            <li>• 모델 무관 메타 학습</li>
+            <li>• 최적화 기반 방법</li>
+            <li>• 빠른 적응</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI Models Section -->
+    <section id="models-section" class="content-section">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">AI 모델 종류</h2>
+        <p class="text-xl text-gray-600">다양한 AI 모델 아키텍처를 탐험해보세요</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('nn')">
+          <div class="text-4xl mb-4">🕸️</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">신경망</h3>
+          <p class="text-gray-600 mb-4">뇌의 뉴런을 모방한 기본 AI 모델</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 퍼셉트론</li>
+            <li>• 다층 퍼셉트론</li>
+            <li>• 역전파 알고리즘</li>
+            <li>• 활성화 함수</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('cnn')">
+          <div class="text-4xl mb-4">🔍</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">CNN</h3>
+          <p class="text-gray-600 mb-4">이미지 처리에 특화된 합성곱 신경망</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 합성곱 층</li>
+            <li>• 풀링 층</li>
+            <li>• 이미지 분류</li>
+            <li>• 객체 탐지</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('rnn')">
+          <div class="text-4xl mb-4">🔄</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">RNN/LSTM</h3>
+          <p class="text-gray-600 mb-4">순차 데이터 처리를 위한 순환 신경망</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 시계열 분석</li>
+            <li>• 자연어 처리</li>
+            <li>• 장단기 메모리</li>
+            <li>• 게이트 메커니즘</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('transformer')">
+          <div class="text-4xl mb-4">⚡</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Transformer</h3>
+          <p class="text-gray-600 mb-4">어텐션 메커니즘 기반의 혁신적 모델</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 셀프 어텐션</li>
+            <li>• BERT, GPT</li>
+            <li>• 병렬 처리</li>
+            <li>• 언어 모델</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('gan')">
+          <div class="text-4xl mb-4">🎨</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">GAN</h3>
+          <p class="text-gray-600 mb-4">생성자와 판별자가 경쟁하는 생성 모델</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 이미지 생성</li>
+            <li>• 데이터 증강</li>
+            <li>• 스타일 전이</li>
+            <li>• 적대적 학습</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('diffusion')">
+          <div class="text-4xl mb-4">🌊</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">Diffusion</h3>
+          <p class="text-gray-600 mb-4">노이즈 제거 과정을 통한 생성 모델</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• DALL-E, Midjourney</li>
+            <li>• 점진적 생성</li>
+            <li>• 고품질 이미지</li>
+            <li>• 조건부 생성</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('tree')">
+          <div class="text-4xl mb-4">🌳</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">결정 트리</h3>
+          <p class="text-gray-600 mb-4">규칙 기반의 해석 가능한 모델</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 랜덤 포레스트</li>
+            <li>• XGBoost</li>
+            <li>• 특성 중요도</li>
+            <li>• 해석 가능성</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('svm')">
+          <div class="text-4xl mb-4">📊</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">SVM</h3>
+          <p class="text-gray-600 mb-4">최적의 결정 경계를 찾는 서포트 벡터 머신</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 커널 트릭</li>
+            <li>• 마진 최대화</li>
+            <li>• 고차원 데이터</li>
+            <li>• 분류와 회귀</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 card-hover cursor-pointer" onclick="showDetailModal('kmeans')">
+          <div class="text-4xl mb-4">🎯</div>
+          <h3 class="text-2xl font-bold text-gray-800 mb-4">K-Means</h3>
+          <p class="text-gray-600 mb-4">데이터를 K개 그룹으로 나누는 클러스터링</p>
+          <ul class="text-sm text-gray-500 space-y-2">
+            <li>• 중심점 기반</li>
+            <li>• 비지도 학습</li>
+            <li>• 고객 세분화</li>
+            <li>• 데이터 압축</li>
+          </ul>
+          <div class="mt-4 text-indigo-600 text-sm font-semibold">클릭하여 자세히 보기 →</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AI History Section -->
+    <section id="history-section" class="content-section">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">AI 역사</h2>
+        <p class="text-xl text-gray-600">인공지능의 발전 과정을 시대순으로 살펴보세요</p>
+      </div>
+
+      <div class="relative">
+        <div class="absolute left-1/2 transform -translate-x-1/2 w-1 bg-indigo-200 h-full"></div>
+        <div class="space-y-12">
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8 text-right">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">1950년대 - AI의 탄생</h3>
+                <p class="text-gray-600 mb-3">앨런 튜링의 튜링 테스트와 AI 개념의 등장</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 1950: 튜링 테스트 제안</li>
+                  <li>• 1956: 다트머스 회의</li>
+                  <li>• "인공지능" 용어 탄생</li>
+                </ul>
+              </div>
+            </div>
+            <div class="w-8 h-8 bg-indigo-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8"></div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8"></div>
+            <div class="w-8 h-8 bg-indigo-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">1960-70년대 - 초기 발전</h3>
+                <p class="text-gray-600 mb-3">전문가 시스템과 초기 신경망 연구</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 1957: 퍼셉트론 개발</li>
+                  <li>• 1960년대: 전문가 시스템</li>
+                  <li>• LISP 프로그래밍 언어</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8 text-right">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">1980년대 - AI 겨울</h3>
+                <p class="text-gray-600 mb-3">기대에 못 미치는 성과로 인한 침체기</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 연구 자금 감소</li>
+                  <li>• 한계 인식</li>
+                  <li>• 역전파 알고리즘 개발</li>
+                </ul>
+              </div>
+            </div>
+            <div class="w-8 h-8 bg-gray-400 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8"></div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8"></div>
+            <div class="w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">1990년대 - 머신러닝 부상</h3>
+                <p class="text-gray-600 mb-3">통계적 접근법과 실용적 AI 시스템</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 1997: Deep Blue vs 카스파로프</li>
+                  <li>• SVM, 랜덤 포레스트</li>
+                  <li>• 인터넷과 데이터 증가</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8 text-right">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">2000년대 - 빅데이터 시대</h3>
+                <p class="text-gray-600 mb-3">대용량 데이터와 컴퓨팅 파워 증가</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 구글, 페이스북 등장</li>
+                  <li>• 웹 데이터 활용</li>
+                  <li>• GPU 컴퓨팅 시작</li>
+                </ul>
+              </div>
+            </div>
+            <div class="w-8 h-8 bg-blue-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8"></div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8"></div>
+            <div class="w-8 h-8 bg-purple-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">2010년대 - 딥러닝 혁명</h3>
+                <p class="text-gray-600 mb-3">신경망의 부활과 획기적 성과</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 2012: AlexNet ImageNet 우승</li>
+                  <li>• CNN, RNN 발전</li>
+                  <li>• 2016: AlphaGo vs 이세돌</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8 text-right">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">2017-2020 - Transformer 시대</h3>
+                <p class="text-gray-600 mb-3">어텐션 메커니즘과 대규모 언어 모델</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 2017: Transformer 논문</li>
+                  <li>• 2018: BERT 발표</li>
+                  <li>• 2019: GPT-2 공개</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <div class="w-1/2 pr-8"></div>
+            <div class="w-8 h-8 bg-red-500 rounded-full border-4 border-white shadow-lg z-10"></div>
+            <div class="w-1/2 pl-8">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <h3 class="text-xl font-bold text-gray-800 mb-2">2020년대 - 생성 AI 시대</h3>
+                <p class="text-gray-600 mb-3">ChatGPT와 생성형 AI의 대중화</p>
+                <ul class="text-sm text-gray-500 space-y-1">
+                  <li>• 2020: GPT-3 발표</li>
+                  <li>• 2022: ChatGPT 출시</li>
+                  <li>• 2023: GPT-4, 멀티모달 AI</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Detail Modal -->
+  <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden modal-overlay">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-8">
+          <div class="flex justify-between items-center mb-6">
+            <h2 id="modalTitle" class="text-3xl font-bold text-gray-800"></h2>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-3xl font-bold">✕</button>
+          </div>
+          <div id="modalContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-12 mt-16">
+    <div class="container mx-auto px-6 text-center">
+      <h3 class="text-2xl font-bold mb-4">AI와 함께하는 미래</h3>
+      <p class="text-gray-300 mb-6">인공지능 기술을 이해하고 활용하여 더 나은 세상을 만들어가세요 made by mtai_tfcs</p>
+      <div class="flex justify-center space-x-6 text-3xl">
+        <span>🤖</span>
+        <span>🧠</span>
+        <span>💡</span>
+        <span>🚀</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function showSection(sectionName) {
+      // Hide all sections
+      const sections = document.querySelectorAll('.content-section');
+      sections.forEach(section => section.classList.remove('active'));
+
+      // Reset tabs
+      const tabs = document.querySelectorAll('.tab-button');
+      tabs.forEach(tab => {
+        tab.classList.remove('tab-active', 'text-white');
+        tab.classList.add('text-gray-600');
+      });
+
+      // Show chosen
+      document.getElementById(sectionName + '-section').classList.add('active');
+
+      // Activate tab
+      const activeTab = document.getElementById('tab-' + sectionName);
+      activeTab.classList.add('tab-active', 'text-white');
+      activeTab.classList.remove('text-gray-600');
+    }
+
+    function showDetailModal(type) {
+      const modal = document.getElementById('detailModal');
+      const title = document.getElementById('modalTitle');
+      const content = document.getElementById('modalContent');
+
+      // === 상세 모달 데이터 ===
+      const details = {
+        /* -------------------- 학습 방법 섹션 -------------------- */
+        supervised: { title: '🎯 지도 학습 (Supervised Learning)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">지도 학습은 입력 데이터와 정답(라벨)이 함께 주어진 상태에서 모델을 훈련시키는 방법입니다. 마치 선생님이 정답을 알려주며 가르치는 것과 같습니다.</p>
+              <h4 class="text-xl font-semibold mb-3">주요 특징</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• <strong>훈련 데이터:</strong> 입력(X)과 출력(Y) 쌍으로 구성</li>
+                <li>• <strong>목표:</strong> 새로운 입력에 대한 정확한 예측</li>
+                <li>• <strong>평가:</strong> 예측 정확도로 성능 측정</li>
+                <li>• <strong>활용:</strong> 분류, 회귀 문제 해결</li>
+              </ul>
+              <h4 class="text-xl font-semibold mb-3 mt-6">실제 활용 예시</h4>
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <p class="text-sm text-blue-800"><strong>이메일 스팸 분류:</strong> 수천 개의 이메일과 "스팸/정상" 라벨로 훈련 후 신규 메일 판별</p>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">학습 과정 시각화</h3>
+              <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <svg viewBox="0 0 400 300" class="w-full h-64">
+                  <rect x="20" y="20" width="80" height="40" fill="#3B82F6" rx="5"/>
+                  <text x="60" y="45" text-anchor="middle" fill="white" font-size="12">훈련 데이터</text>
+                  <path d="M110 40 L140 40" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead)"/>
+                  <circle cx="170" cy="40" r="25" fill="#10B981"/>
+                  <text x="170" y="45" text-anchor="middle" fill="white" font-size="10">모델</text>
+                  <path d="M200 40 L230 40" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead)"/>
+                  <rect x="240" y="20" width="80" height="40" fill="#F59E0B" rx="5"/>
+                  <text x="280" y="45" text-anchor="middle" fill="white" font-size="12">예측 결과</text>
+                  <text x="20" y="100" font-size="14" font-weight="bold">예시 데이터:</text>
+                  <rect x="20" y="110" width="150" height="30" fill="#EFF6FF" stroke="#3B82F6" rx="3"/>
+                  <text x="25" y="130" font-size="12">입력: "할인 이벤트!"</text>
+                  <rect x="180" y="110" width="80" height="30" fill="#FEF3C7" stroke="#F59E0B" rx="3"/>
+                  <text x="185" y="130" font-size="12">라벨: 스팸</text>
+                  <rect x="20" y="150" width="150" height="30" fill="#EFF6FF" stroke="#3B82F6" rx="3"/>
+                  <text x="25" y="170" font-size="12">입력: "회의 일정"</text>
+                  <rect x="180" y="150" width="80" height="30" fill="#D1FAE5" stroke="#10B981" rx="3"/>
+                  <text x="185" y="170" font-size="12">라벨: 정상</text>
+                  <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280"/>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">성능 지표</h4>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between bg-green-50 p-3 rounded">
+                  <span class="font-medium">정확도 (Accuracy)</span>
+                  <div class="w-32 bg-gray-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full chart-bar" style="width: 85%"></div></div>
+                  <span class="text-sm text-gray-600">85%</span>
+                </div>
+                <div class="flex items-center justify-between bg-blue-50 p-3 rounded">
+                  <span class="font-medium">정밀도 (Precision)</span>
+                  <div class="w-32 bg-gray-200 rounded-full h-2"><div class="bg-blue-500 h-2 rounded-full chart-bar" style="width: 78%"></div></div>
+                  <span class="text-sm text-gray-600">78%</span>
+                </div>
+                <div class="flex items-center justify-between bg-purple-50 p-3 rounded">
+                  <span class="font-medium">재현율 (Recall)</span>
+                  <div class="w-32 bg-gray-200 rounded-full h-2"><div class="bg-purple-500 h-2 rounded-full chart-bar" style="width: 82%"></div></div>
+                  <span class="text-sm text-gray-600">82%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `},
+        unsupervised: { title: '🔍 비지도 학습 (Unsupervised Learning)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">정답 없이 데이터에서 숨겨진 패턴이나 구조를 찾아내는 학습 방법입니다.</p>
+              <h4 class="text-xl font-semibold mb-3">주요 기법</h4>
+              <div class="space-y-3">
+                <div class="bg-blue-50 p-3 rounded-lg"><h5 class="font-semibold text-blue-800">클러스터링</h5><p class="text-sm text-blue-600">유사한 데이터끼리 그룹화</p></div>
+                <div class="bg-green-50 p-3 rounded-lg"><h5 class="font-semibold text-green-800">차원 축소</h5><p class="text-sm text-green-600">복잡한 데이터를 단순화</p></div>
+                <div class="bg-purple-50 p-3 rounded-lg"><h5 class="font-semibold text-purple-800">이상 탐지</h5><p class="text-sm text-purple-600">비정상 패턴 탐색</p></div>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 mt-6">실제 활용 예시</h4>
+              <div class="bg-orange-50 p-4 rounded-lg"><p class="text-sm text-orange-800"><strong>고객 세분화:</strong> 구매 패턴을 분석해 그룹화 후 맞춤 마케팅</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">클러스터링 시각화</h3>
+              <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <svg viewBox="0 0 400 300" class="w-full h-64">
+                  <circle cx="100" cy="80" r="3" fill="#3B82F6"/><circle cx="110" cy="85" r="3" fill="#3B82F6"/><circle cx="95" cy="90" r="3" fill="#3B82F6"/><circle cx="105" cy="75" r="3" fill="#3B82F6"/><circle cx="90" cy="85" r="3" fill="#3B82F6"/>
+                  <circle cx="100" cy="80" r="25" fill="none" stroke="#3B82F6" stroke-width="2" stroke-dasharray="5,5"/>
+                  <text x="100" y="120" text-anchor="middle" font-size="12" fill="#3B82F6">그룹 A</text>
+                  <circle cx="300" cy="100" r="3" fill="#10B981"/><circle cx="310" cy="95" r="3" fill="#10B981"/><circle cx="295" cy="105" r="3" fill="#10B981"/><circle cx="305" cy="110" r="3" fill="#10B981"/><circle cx="290" cy="100" r="3" fill="#10B981"/>
+                  <circle cx="300" cy="100" r="25" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="5,5"/>
+                  <text x="300" y="140" text-anchor="middle" font-size="12" fill="#10B981">그룹 B</text>
+                  <circle cx="200" cy="200" r="3" fill="#F59E0B"/><circle cx="210" cy="205" r="3" fill="#F59E0B"/><circle cx="195" cy="195" r="3" fill="#F59E0B"/><circle cx="205" cy="190" r="3" fill="#F59E0B"/><circle cx="190" cy="205" r="3" fill="#F59E0B"/>
+                  <circle cx="200" cy="200" r="25" fill="none" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5,5"/>
+                  <text x="200" y="240" text-anchor="middle" font-size="12" fill="#F59E0B">그룹 C</text>
+                  <text x="200" y="20" text-anchor="middle" font-size="14" font-weight="bold">데이터 포인트들이 자동으로 그룹화됨</text>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">알고리즘 비교</h4>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between bg-blue-50 p-3 rounded"><span class="font-medium">K-Means</span><div class="flex items-center space-x-2"><span class="text-xs bg-blue-200 px-2 py-1 rounded">빠름</span><span class="text-xs bg-blue-200 px-2 py-1 rounded">구형 클러스터</span></div></div>
+                <div class="flex items-center justify-between bg-green-50 p-3 rounded"><span class="font-medium">DBSCAN</span><div class="flex items-center space-x-2"><span class="text-xs bg-green-200 px-2 py-1 rounded">노이즈 처리</span><span class="text-xs bg-green-200 px-2 py-1 rounded">임의 모양</span></div></div>
+                <div class="flex items-center justify-between bg-purple-50 p-3 rounded"><span class="font-medium">계층적 클러스터링</span><div class="flex items-center space-x-2"><span class="text-xs bg-purple-200 px-2 py-1 rounded">트리 구조</span><span class="text-xs bg-purple-200 px-2 py-1 rounded">해석 용이</span></div></div>
+              </div>
+            </div>
+          </div>
+        `},
+        reinforcement: { title: '🎮 강화 학습 (Reinforcement Learning)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">에이전트가 환경과 상호작용하며 보상을 최대화하는 행동을 학습합니다.</p>
+              <h4 class="text-xl font-semibold mb-3">핵심 구성 요소</h4>
+              <div class="space-y-3">
+                <div class="flex items-center space-x-3"><div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">A</div><div><h5 class="font-semibold">에이전트</h5><p class="text-sm text-gray-600">학습하고 행동하는 주체</p></div></div>
+                <div class="flex items-center space-x-3"><div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">E</div><div><h5 class="font-semibold">환경</h5><p class="text-sm text-gray-600">상호작용하는 세계</p></div></div>
+                <div class="flex items-center space-x-3"><div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white font-bold">R</div><div><h5 class="font-semibold">보상</h5><p class="text-sm text-gray-600">행동에 대한 피드백</p></div></div>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 mt-6">실제 활용 예시</h4>
+              <div class="bg-red-50 p-4 rounded-lg"><p class="text-sm text-red-800"><strong>게임 AI:</strong> AlphaGo가 보상-최대화 전략으로 바둑을 학습</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">학습 과정 시각화</h3>
+              <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <svg viewBox="0 0 400 300" class="w-full h-64">
+                  <circle cx="80" cy="150" r="30" fill="#3B82F6"/>
+                  <text x="80" y="155" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Agent</text>
+                  <rect x="250" y="120" width="100" height="60" fill="#10B981" rx="10"/>
+                  <text x="300" y="155" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Environment</text>
+                  <path d="M115 140 Q180 120 245 140" stroke="#F59E0B" stroke-width="3" fill="none" marker-end="url(#arrowhead2)"/>
+                  <text x="180" y="115" text-anchor="middle" font-size="11" fill="#F59E0B" font-weight="bold">Action</text>
+                  <path d="M245 160 Q180 180 115 160" stroke="#EF4444" stroke-width="3" fill="none" marker-end="url(#arrowhead3)"/>
+                  <text x="180" y="195" text-anchor="middle" font-size="11" fill="#EF4444" font-weight="bold">State + Reward</text>
+                  <text x="200" y="40" text-anchor="middle" font-size="14" font-weight="bold">강화학습 순환 과정</text>
+                  <text x="200" y="260" text-anchor="middle" font-size="12" fill="#6B7280">1. 행동 선택 → 2. 환경 반응 → 3. 보상 → 4. 학습 → 반복</text>
+                  <defs>
+                    <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#F59E0B"/></marker>
+                    <marker id="arrowhead3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#EF4444"/></marker>
+                  </defs>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">학습 성과 그래프</h4>
+              <div class="bg-white p-4 border rounded-lg">
+                <svg viewBox="0 0 300 150" class="w-full h-32">
+                  <line x1="30" y1="120" x2="270" y2="120" stroke="#6B7280" stroke-width="1"/>
+                  <line x1="30" y1="120" x2="30" y2="20" stroke="#6B7280" stroke-width="1"/>
+                  <path d="M30 110 Q80 100 120 80 Q160 60 200 45 Q240 35 270 30" stroke="#10B981" stroke-width="3" fill="none"/>
+                  <text x="150" y="140" text-anchor="middle" font-size="10" fill="#6B7280">학습 에피소드</text>
+                  <text x="15" y="75" text-anchor="middle" font-size="10" fill="#6B7280" transform="rotate(-90 15 75)">누적 보상</text>
+                  <text x="150" y="15" text-anchor="middle" font-size="12" font-weight="bold" fill="#10B981">성능 향상 곡선</text>
+                  <circle cx="30" cy="110" r="2" fill="#10B981"/><circle cx="120" cy="80" r="2" fill="#10B981"/><circle cx="200" cy="45" r="2" fill="#10B981"/><circle cx="270" cy="30" r="2" fill="#10B981"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        `},
+        transfer: { title: '🔄 전이 학습 (Transfer Learning)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">한 분야에서 학습한 지식을 다른 관련 분야에 적용하는 방법입니다.</p>
+              <h4 class="text-xl font-semibold mb-3">전이 학습의 장점</h4>
+              <div class="space-y-3">
+                <div class="flex items-center space-x-3"><div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">✓</span></div><span class="text-gray-700">학습 시간 단축</span></div>
+                <div class="flex items-center space-x-3"><div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">✓</span></div><span class="text-gray-700">적은 데이터로도 높은 성능</span></div>
+                <div class="flex items-center space-x-3"><div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">✓</span></div><span class="text-gray-700">컴퓨팅 자원 절약</span></div>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 mt-6">전이 학습 유형</h4>
+              <div class="space-y-2">
+                <div class="bg-blue-50 p-3 rounded-lg"><h5 class="font-semibold text-blue-800">특성 추출</h5><p class="text-sm text-blue-600">사전 훈련된 모델의 특성을 그대로 사용</p></div>
+                <div class="bg-purple-50 p-3 rounded-lg"><h5 class="font-semibold text-purple-800">파인 튜닝</h5><p class="text-sm text-purple-600">사전 훈련된 모델을 새 데이터로 미세 조정</p></div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">전이 학습 과정</h3>
+              <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <svg viewBox="0 0 400 280" class="w-full h-64">
+                  <rect x="20" y="20" width="120" height="80" fill="#3B82F6" rx="10"/>
+                  <text x="80" y="45" text-anchor="middle" fill="white" font-size="12" font-weight="bold">원본 도메인</text>
+                  <text x="80" y="65" text-anchor="middle" fill="white" font-size="10">ImageNet</text>
+                  <text x="80" y="80" text-anchor="middle" fill="white" font-size="10">(100만 이미지)</text>
+                  <rect x="20" y="120" width="120" height="60" fill="#10B981" rx="10"/>
+                  <text x="80" y="145" text-anchor="middle" fill="white" font-size="12" font-weight="bold">사전 훈련 모델</text>
+                  <text x="80" y="165" text-anchor="middle" fill="white" font-size="10">ResNet-50</text>
+                  <path d="M150 150 L200 150" stroke="#F59E0B" stroke-width="4" marker-end="url(#arrowhead4)"/>
+                  <text x="175" y="140" text-anchor="middle" font-size="11" fill="#F59E0B" font-weight="bold">전이</text>
+                  <rect x="210" y="20" width="120" height="80" fill="#EF4444" rx="10"/>
+                  <text x="270" y="45" text-anchor="middle" fill="white" font-size="12" font-weight="bold">목표 도메인</text>
+                  <text x="270" y="65" text-anchor="middle" fill="white" font-size="10">의료 이미지</text>
+                  <text x="270" y="80" text-anchor="middle" fill="white" font-size="10">(1000 이미지)</text>
+                  <rect x="210" y="120" width="120" height="60" fill="#7C3AED" rx="10"/>
+                  <text x="270" y="145" text-anchor="middle" fill="white" font-size="12" font-weight="bold">파인튜닝 모델</text>
+                  <text x="270" y="165" text-anchor="middle" fill="white" font-size="10">의료진단 AI</text>
+                  <text x="200" y="220" text-anchor="middle" font-size="14" font-weight="bold">성능 비교</text>
+                  <rect x="80" y="230" width="60" height="20" fill="#EF4444" rx="3"/>
+                  <text x="110" y="245" text-anchor="middle" fill="white" font-size="10">처음부터: 65%</text>
+                  <rect x="160" y="230" width="80" height="20" fill="#10B981" rx="3"/>
+                  <text x="200" y="245" text-anchor="middle" fill="white" font-size="10">전이학습: 92%</text>
+                  <defs>
+                    <marker id="arrowhead4" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#F59E0B"/>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">실제 활용 사례</h4>
+              <div class="space-y-3">
+                <div class="bg-blue-50 p-3 rounded-lg"><h5 class="font-semibold text-blue-800">의료 영상 진단</h5><p class="text-sm text-blue-600">ImageNet 특징을 X-ray 판독에 전이</p></div>
+                <div class="bg-green-50 p-3 rounded-lg"><h5 class="font-semibold text-green-800">자율주행</h5><p class="text-sm text-green-600">일반 이미지 인식 → 도로 상황</p></div>
+                <div class="bg-purple-50 p-3 rounded-lg"><h5 class="font-semibold text-purple-800">언어 번역</h5><p class="text-sm text-purple-600">언어쌍 전이</p></div>
+              </div>
+            </div>
+          </div>
+        `},
+        semisupervised: { title: '🎭 준지도 학습 (Semi-supervised Learning)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">소량의 라벨과 대량의 비라벨 데이터를 함께 사용하는 방법입니다.</p>
+              <h4 class="text-xl font-semibold mb-3">왜 준지도 학습인가?</h4>
+              <div class="space-y-3">
+                <div class="bg-red-50 p-3 rounded-lg"><h5 class="font-semibold text-red-800">문제점</h5><p class="text-sm text-red-600">라벨링 비용이 높음</p></div>
+                <div class="bg-green-50 p-3 rounded-lg"><h5 class="font-semibold text-green-800">해결책</h5><p class="text-sm text-green-600">비라벨 데이터의 구조 활용</p></div>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 mt-6">주요 기법</h4>
+              <div class="space-y-2">
+                <div class="bg-blue-50 p-3 rounded-lg"><h5 class="font-semibold text-blue-800">자기 훈련</h5><p class="text-sm text-blue-600">확신도 높은 예측을 라벨로 재사용</p></div>
+                <div class="bg-purple-50 p-3 rounded-lg"><h5 class="font-semibold text-purple-800">공동 훈련</h5><p class="text-sm text-purple-600">여러 모델이 서로 가르치며 학습</p></div>
+                <div class="bg-orange-50 p-3 rounded-lg"><h5 class="font-semibold text-orange-800">그래프 기반</h5><p class="text-sm text-orange-600">유사성 그래프 활용</p></div>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">데이터 구성 비교</h3>
+              <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <svg viewBox="0 0 400 250" class="w-full h-56">
+                  <text x="100" y="25" text-anchor="middle" font-size="12" font-weight="bold">지도 학습</text>
+                  <rect x="50" y="35" width="100" height="30" fill="#3B82F6" rx="5"/>
+                  <text x="100" y="55" text-anchor="middle" fill="white" font-size="10">라벨 100%</text>
+                  <text x="100" y="90" text-anchor="middle" font-size="12" font-weight="bold">준지도 학습</text>
+                  <rect x="50" y="100" width="20" height="30" fill="#3B82F6" rx="5"/>
+                  <rect x="70" y="100" width="80" height="30" fill="#94A3B8" rx="5"/>
+                  <text x="60" y="120" text-anchor="middle" fill="white" font-size="8">라벨</text>
+                  <text x="110" y="120" text-anchor="middle" fill="white" font-size="8">비라벨</text>
+                  <text x="100" y="155" text-anchor="middle" font-size="12" font-weight="bold">비지도 학습</text>
+                  <rect x="50" y="165" width="100" height="30" fill="#94A3B8" rx="5"/>
+                  <text x="100" y="185" text-anchor="middle" fill="white" font-size="10">라벨 0%</text>
+                  <text x="300" y="25" text-anchor="middle" font-size="12" font-weight="bold">성능 비교</text>
+                  <line x1="220" y1="200" x2="380" y2="200" stroke="#6B7280" stroke-width="1"/>
+                  <line x1="220" y1="200" x2="220" y2="40" stroke="#6B7280" stroke-width="1"/>
+                  <rect x="240" y="120" width="30" height="80" fill="#EF4444"/>
+                  <rect x="280" y="80" width="30" height="120" fill="#10B981"/>
+                  <rect x="320" y="100" width="30" height="100" fill="#3B82F6"/>
+                  <text x="255" y="215" text-anchor="middle" font-size="8">비지도</text>
+                  <text x="295" y="215" text-anchor="middle" font-size="8">준지도</text>
+                  <text x="335" y="215" text-anchor="middle" font-size="8">지도</text>
+                  <text x="255" y="110" text-anchor="middle" font-size="8" fill="white">60%</text>
+                  <text x="295" y="70" text-anchor="middle" font-size="8" fill="white">85%</text>
+                  <text x="335" y="90" text-anchor="middle" font-size="8" fill="white">90%</text>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">실제 활용 사례</h4>
+              <div class="space-y-3">
+                <div class="bg-blue-50 p-3 rounded-lg"><h5 class="font-semibold text-blue-800">웹 페이지 분류</h5><p class="text-sm text-blue-600">소수 라벨로 대량 문서 확장</p></div>
+                <div class="bg-green-50 p-3 rounded-lg"><h5 class="font-semibold text-green-800">음성 인식</h5><p class="text-sm text-green-600">적은 전사 데이터 활용</p></div>
+                <div class="bg-purple-50 p-3 rounded-lg"><h5 class="font-semibold text-purple-800">이미지 분할</h5><p class="text-sm text-purple-600">부분 라벨 → 전체 영역</p></div>
+              </div>
+            </div>
+          </div>
+        `},
+        meta: { title: '🧩 메타 학습 (Meta Learning)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">"학습하는 방법을 학습"하는 기법으로, 다양한 작업을 경험해 새로운 작업에 빠르게 적응합니다.</p>
+              <h4 class="text-xl font-semibold mb-3">핵심 아이디어</h4>
+              <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg mb-4">
+                <p class="text-sm text-gray-700"><strong>"Learning to Learn"</strong> — 다작업 학습을 통해 빠른 적응 전략 습득</p>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">주요 특징</h4>
+              <div class="space-y-3">
+                <div class="flex items-center space-x-3"><div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">⚡</span></div><span class="text-gray-700">빠른 적응 (Few-shot)</span></div>
+                <div class="flex items-center space-x-3"><div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">🔄</span></div><span class="text-gray-700">일반화 능력</span></div>
+                <div class="flex items-center space-x-3"><div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center"><span class="text-white text-xs">🎯</span></div><span class="text-gray-700">효율적 학습</span></div>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 mt-6">실제 활용 예시</h4>
+              <div class="bg-indigo-50 p-4 rounded-lg"><p class="text-sm text-indigo-800"><strong>Few-shot 이미지 분류:</strong> 소수 예시로도 정확한 분류</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">메타 학습 과정</h3>
+              <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                <svg viewBox="0 0 400 280" class="w-full h-64">
+                  <text x="200" y="20" text-anchor="middle" font-size="14" font-weight="bold">메타 학습 과정</text>
+                  <rect x="20" y="40" width="60" height="40" fill="#3B82F6" rx="5"/><text x="50" y="65" text-anchor="middle" fill="white" font-size="10">Task 1</text>
+                  <rect x="20" y="90" width="60" height="40" fill="#10B981" rx="5"/><text x="50" y="115" text-anchor="middle" fill="white" font-size="10">Task 2</text>
+                  <rect x="20" y="140" width="60" height="40" fill="#F59E0B" rx="5"/><text x="50" y="165" text-anchor="middle" fill="white" font-size="10">Task N</text>
+                  <rect x="120" y="90" width="80" height="60" fill="#7C3AED" rx="10"/>
+                  <text x="160" y="115" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Meta</text>
+                  <text x="160" y="130" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Learner</text>
+                  <path d="M85 60 L115 110" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead5)"/>
+                  <path d="M85 110 L115 120" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead5)"/>
+                  <path d="M85 160 L115 130" stroke="#6B7280" stroke-width="2" marker-end="url(#arrowhead5)"/>
+                  <rect x="240" y="40" width="60" height="40" fill="#EF4444" rx="5"/><text x="270" y="65" text-anchor="middle" fill="white" font-size="10">New Task</text>
+                  <rect x="320" y="90" width="60" height="60" fill="#059669" rx="10"/><text x="350" y="115" text-anchor="middle" fill="white" font-size="10">Fast</text><text x="350" y="130" text-anchor="middle" fill="white" font-size="10">Adaptation</text>
+                  <path d="M205 120 L235 120" stroke="#7C3AED" stroke-width="3" marker-end="url(#arrowhead6)"/>
+                  <path d="M270 85 L320 110" stroke="#EF4444" stroke-width="2" marker-end="url(#arrowhead7)"/>
+                  <text x="160" y="200" text-anchor="middle" font-size="11" fill="#7C3AED">다양한 작업으로 학습</text>
+                  <text x="350" y="200" text-anchor="middle" font-size="11" fill="#059669">새 작업에 빠른 적응</text>
+                  <text x="270" y="220" text-anchor="middle" font-size="10" fill="#EF4444">단 몇 개 예시만으로!</text>
+                  <defs>
+                    <marker id="arrowhead5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#6B7280"/></marker>
+                    <marker id="arrowhead6" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto"><polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/></marker>
+                    <marker id="arrowhead7" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#EF4444"/></marker>
+                  </defs>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3">성능 비교</h4>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between bg-red-50 p-3 rounded"><span class="font-medium">일반 학습</span><div class="flex items-center space-x-2"><div class="w-24 bg-gray-200 rounded-full h-2"><div class="bg-red-500 h-2 rounded-full chart-bar" style="width: 45%"></div></div><span class="text-sm text-gray-600">45% (1000 샘플)</span></div></div>
+                <div class="flex items-center justify-between bg-green-50 p-3 rounded"><span class="font-medium">메타 학습</span><div class="flex items-center space-x-2"><div class="w-24 bg-gray-200 rounded-full h-2"><div class="bg-green-500 h-2 rounded-full chart-bar" style="width: 85%"></div></div><span class="text-sm text-gray-600">85% (5 샘플)</span></div></div>
+              </div>
+            </div>
+          </div>
+        `},
+
+        /* -------------------- 모델 상세 섹션 -------------------- */
+        nn: { title: '🕸️ 신경망 (Neural Networks)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">다수의 뉴런과 비선형 활성화로 임의의 함수를 근사합니다. 역전파로 가중치를 학습합니다.</p>
+              <h4 class="text-xl font-semibold mb-3">핵심 요소</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• 활성화: ReLU, Sigmoid, Tanh</li>
+                <li>• 최적화: SGD, Adam</li>
+                <li>• 정규화: L2, Dropout, BatchNorm</li>
+                <li>• 손실: Cross-Entropy, MSE</li>
+              </ul>
+              <div class="bg-blue-50 p-4 rounded-lg mt-6">
+                <p class="text-sm text-blue-800"><strong>활용:</strong> 표준 분류/회귀, 기본 특성 추출</p>
+              </div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">구조 예시</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 200" class="w-full h-56">
+                  <circle cx="60" cy="50" r="12" fill="#3B82F6"/><circle cx="60" cy="100" r="12" fill="#3B82F6"/><circle cx="60" cy="150" r="12" fill="#3B82F6"/>
+                  <circle cx="210" cy="35" r="12" fill="#10B981"/><circle cx="210" cy="80" r="12" fill="#10B981"/><circle cx="210" cy="125" r="12" fill="#10B981"/><circle cx="210" cy="170" r="12" fill="#10B981"/>
+                  <circle cx="360" cy="100" r="12" fill="#F59E0B"/>
+                  <g stroke="#9CA3AF">
+                    ${[35,80,125,170].map(y=>[50,100,150].map(x=>`<line x1="72" y1="${x}" x2="198" y2="${y}"/>`).join('')).join('')}
+                    ${[50,100,150].map(y=>`<line x1="222" y1="${y}" x2="348" y2="100"/>`).join('')}
+                  </g>
+                  <text x="60" y="15" font-size="12" text-anchor="middle">입력층</text>
+                  <text x="210" y="15" font-size="12" text-anchor="middle">은닉층</text>
+                  <text x="360" y="15" font-size="12" text-anchor="middle">출력층</text>
+                </svg>
+              </div>
+              <h4 class="text-xl font-semibold mb-3 mt-4">장단점</h4>
+              <div class="flex gap-3 text-sm">
+                <span class="px-2 py-1 bg-green-100 rounded">표현력 우수</span>
+                <span class="px-2 py-1 bg-red-100 rounded">과적합 위험</span>
+                <span class="px-2 py-1 bg-yellow-100 rounded">데이터 많이 필요</span>
+              </div>
+            </div>
+          </div>
+        `},
+        cnn: { title: '🔍 CNN (Convolutional Neural Networks)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">가중치 공유와 국소 연결로 이미지의 공간 패턴을 학습하는 신경망입니다.</p>
+              <h4 class="text-xl font-semibold mb-3">핵심 블록</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• Conv → 활성화 → Pooling</li>
+                <li>• Feature Map 누적 후 FC</li>
+                <li>• 패딩/스트라이드로 해상도 제어</li>
+              </ul>
+              <div class="bg-blue-50 p-4 rounded-lg mt-6"><p class="text-sm text-blue-800"><strong>활용:</strong> 분류 · 검출 · 분할</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">특징 맵 시각화</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 180" class="w-full h-48">
+                  <rect x="20" y="30" width="100" height="100" fill="#EFF6FF" stroke="#3B82F6"/>
+                  <rect x="150" y="40" width="80" height="80" fill="#ECFEFF" stroke="#06B6D4"/>
+                  <rect x="260" y="50" width="60" height="60" fill="#ECFDF5" stroke="#10B981"/>
+                  <text x="70" y="20" font-size="12" text-anchor="middle">입력 이미지</text>
+                  <text x="190" y="30" font-size="12" text-anchor="middle">Conv → ReLU</text>
+                  <text x="290" y="40" font-size="12" text-anchor="middle">Pooling</text>
+                </svg>
+              </div>
+              <div class="flex gap-3 text-sm mt-4">
+                <span class="px-2 py-1 bg-green-100 rounded">매개변수 효율</span>
+                <span class="px-2 py-1 bg-yellow-100 rounded">구현 용이</span>
+                <span class="px-2 py-1 bg-red-100 rounded">장문/순차엔 약함</span>
+              </div>
+            </div>
+          </div>
+        `},
+        rnn: { title: '🔄 RNN / LSTM / GRU', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">시간적 의존성을 은닉상태로 전달해 순서를 반영합니다. LSTM/GRU는 게이트로 장기 의존성 문제를 완화합니다.</p>
+              <h4 class="text-xl font-semibold mb-3">적용</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• 시계열 예측, 센서 데이터</li>
+                <li>• 음성/자연어(소·중형)</li>
+                <li>• 이벤트 로그 분석</li>
+              </ul>
+              <div class="bg-purple-50 p-4 rounded-lg mt-6"><p class="text-sm text-purple-800"><strong>장점:</strong> 순서/문맥 반영 · <strong>단점:</strong> 병렬화 어려움</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">흐름도</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 160" class="w-full h-44">
+                  ${[60,170,280].map((x,i)=>`
+                    <rect x="${x}" y="50" width="70" height="60" rx="8" fill="#EDE9FE" stroke="#7C3AED"/>
+                    <text x="${x+35}" y="85" text-anchor="middle" font-size="12">Cell ${i+1}</text>
+                  `).join('')}
+                  <g stroke="#7C3AED" marker-end="url(#arrR)">
+                    <line x1="130" y1="80" x2="160" y2="80"/>
+                    <line x1="240" y1="80" x2="270" y2="80"/>
+                  </g>
+                  <defs>
+                    <marker id="arrR" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#7C3AED"/>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+          </div>
+        `},
+        transformer: { title: '⚡ Transformer', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">Self-Attention으로 토큰 간 관계를 병렬 학습. 인코더/디코더, 포지셔널 인코딩, 잔차/정규화가 핵심.</p>
+              <h4 class="text-xl font-semibold mb-3">대표 모델</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• BERT(인코더), GPT(디코더)</li>
+                <li>• ViT(비전), T5(텍스트-텍스트)</li>
+                <li>• 멀티모달 확장</li>
+              </ul>
+              <div class="bg-yellow-50 p-4 rounded-lg mt-6"><p class="text-sm text-yellow-800"><strong>장점:</strong> 병렬/긴 문맥 · <strong>주의:</strong> O(n²) 비용</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">블록 구조</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 200" class="w-full h-56">
+                  <rect x="40" y="30" width="340" height="140" rx="12" fill="#F3F4F6" stroke="#9CA3AF"/>
+                  <rect x="60" y="50" width="300" height="40" rx="8" fill="#DBEAFE" stroke="#3B82F6"/>
+                  <text x="210" y="75" text-anchor="middle" font-size="12">Multi-Head Self-Attention</text>
+                  <rect x="60" y="110" width="300" height="40" rx="8" fill="#E9D5FF" stroke="#7C3AED"/>
+                  <text x="210" y="135" text-anchor="middle" font-size="12">Feed Forward (MLP)</text>
+                  <text x="210" y="25" text-anchor="middle" font-size="12">Transformer Block (LayerNorm + Residual)</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        `},
+        gan: { title: '🎨 GAN (Generative Adversarial Networks)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">생성자(G)와 판별자(D)가 경쟁하며 데이터 분포를 학습하는 생성 모델.</p>
+              <h4 class="text-xl font-semibold mb-3">학습 다이어그램</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• G: 잡음 z → 가짜 샘플</li>
+                <li>• D: 진짜/가짜 구분</li>
+                <li>• 미니맥스 최적화</li>
+              </ul>
+              <div class="bg-pink-50 p-4 rounded-lg mt-6"><p class="text-sm text-pink-800"><strong>활용:</strong> 이미지 생성, 스타일 변환, 초해상도</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">흐름</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 170" class="w-full h-44">
+                  <rect x="40" y="60" width="90" height="50" rx="8" fill="#FCE7F3" stroke="#F472B6"/>
+                  <text x="85" y="90" text-anchor="middle" font-size="12">Generator</text>
+                  <rect x="180" y="25" width="60" height="120" rx="8" fill="#E5E7EB" stroke="#9CA3AF"/>
+                  <text x="210" y="90" text-anchor="middle" font-size="12">z</text>
+                  <rect x="280" y="60" width="90" height="50" rx="8" fill="#DCFCE7" stroke="#34D399"/>
+                  <text x="325" y="90" text-anchor="middle" font-size="12">Discriminator</text>
+                  <g stroke="#9CA3AF" marker-end="url(#arrG)">
+                    <line x1="100" y1="60" x2="280" y2="60"/>
+                    <line x1="240" y1="85" x2="280" y2="85"/>
+                  </g>
+                  <defs>
+                    <marker id="arrG" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#9CA3AF"/>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+              <div class="flex gap-3 text-sm mt-4">
+                <span class="px-2 py-1 bg-red-100 rounded">모드 붕괴 주의</span>
+                <span class="px-2 py-1 bg-yellow-100 rounded">학습 불안정</span>
+                <span class="px-2 py-1 bg-green-100 rounded">고품질 샘플</span>
+              </div>
+            </div>
+          </div>
+        `},
+        diffusion: { title: '🌊 확산 모델 (Diffusion Models)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">점진적으로 노이즈를 추가하고 역과정을 학습해 노이즈를 제거하며 샘플을 생성합니다. DDPM, DDIM, Stable Diffusion 등이 대표.</p>
+              <h4 class="text-xl font-semibold mb-3">장점/활용</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• 안정적 학습 · 고품질 이미지</li>
+                <li>• 텍스트 조건부 생성</li>
+                <li>• 인페인팅/업스케일링</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">샘플링 단계</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 160" class="w-full h-44">
+                  ${[40,120,200,280,360].map((x,i)=>`
+                    <rect x="${x}" y="50" width="50" height="50" rx="8" fill="#E5E7EB" stroke="#9CA3AF"/>
+                    <text x="${x+25}" y="80" text-anchor="middle" font-size="10">t=${i}</text>
+                  `).join('')}
+                  <g stroke="#9CA3AF" marker-end="url(#arrD)">
+                    ${[40,120,200,280].map(x=>`<line x1="${x+50}" y1="75" x2="${x+70}" y2="75"/>`).join('')}
+                  </g>
+                  <defs>
+                    <marker id="arrD" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                      <polygon points="0 0, 10 3.5, 0 7" fill="#9CA3AF"/>
+                    </marker>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+          </div>
+        `},
+        tree: { title: '🌳 결정 트리 (Decision Trees)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">특성 기반 규칙 분기를 통해 예측하는 해석 가능한 모델. 과적합을 막기 위해 가지치기/앙상블을 사용합니다.</p>
+              <h4 class="text-xl font-semibold mb-3">장단점</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• 해석 용이, 전처리 적음</li>
+                <li>• 과적합 쉬움 → 가지치기/앙상블</li>
+                <li>• 분류/회귀 모두 사용</li>
+              </ul>
+              <div class="bg-green-50 p-4 rounded-lg mt-6"><p class="text-sm text-green-800"><strong>앙상블:</strong> 랜덤 포레스트, XGBoost</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">트리 예시</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 180" class="w-full h-48">
+                  <rect x="170" y="20" width="80" height="36" rx="8" fill="#E0E7FF" stroke="#6366F1"/>
+                  <text x="210" y="42" text-anchor="middle" font-size="11">특성 A ≤ τ?</text>
+                  <rect x="60" y="90" width="100" height="32" rx="8" fill="#FEE2E2" stroke="#EF4444"/>
+                  <text x="110" y="110" text-anchor="middle" font-size="11">Leaf 1</text>
+                  <rect x="280" y="90" width="100" height="32" rx="8" fill="#DCFCE7" stroke="#10B981"/>
+                  <text x="330" y="110" text-anchor="middle" font-size="11">Leaf 2</text>
+                  <g stroke="#9CA3AF">
+                    <line x1="210" y1="56" x2="110" y2="90"/>
+                    <line x1="210" y1="56" x2="330" y2="90"/>
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        `},
+        svm: { title: '📊 SVM (Support Vector Machines)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">마진을 최대화하는 초평면을 찾으며, 커널로 비선형 분리도 수행합니다.</p>
+              <h4 class="text-xl font-semibold mb-3">핵심</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• 선형/폴리/RBF 커널</li>
+                <li>• C(규제), γ(RBF 폭) 튜닝</li>
+                <li>• 고차원 소표본에 강함</li>
+              </ul>
+              <div class="bg-blue-50 p-4 rounded-lg mt-6"><p class="text-sm text-blue-800"><strong>활용:</strong> 텍스트 분류, 생물정보, 이상탐지(OC-SVM)</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">결정 경계 예시</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 180" class="w-full h-48">
+                  <line x1="40" y1="130" x2="380" y2="50" stroke="#9CA3AF" stroke-dasharray="6,4"/>
+                  <line x1="40" y1="150" x2="380" y2="70" stroke="#10B981"/>
+                  <line x1="40" y1="110" x2="380" y2="30" stroke="#10B981"/>
+                  ${[60,110,160,210,260,310,360].map((x,i)=>`<circle cx="${x}" cy="${140-(i%3)*20}" r="4" fill="#3B82F6"/>`).join('')}
+                  ${[80,130,180,230,280,330].map((x,i)=>`<rect x="${x-3}" y="${60+(i%3)*20}" width="6" height="6" fill="#EF4444"/>`).join('')}
+                </svg>
+              </div>
+            </div>
+          </div>
+        `},
+        kmeans: { title: '🎯 K-Means (클러스터링)', content: `
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="text-2xl font-bold mb-4">개념 설명</h3>
+              <p class="text-gray-600 mb-6">K개의 중심을 반복 갱신하여 샘플을 가장 가까운 중심에 할당하는 알고리즘입니다.</p>
+              <h4 class="text-xl font-semibold mb-3">특징</h4>
+              <ul class="space-y-2 text-gray-600">
+                <li>• 빠르고 단순</li>
+                <li>• 구형(볼록) 클러스터에 적합</li>
+                <li>• 초기화/스케일링에 민감</li>
+              </ul>
+              <div class="bg-indigo-50 p-4 rounded-lg mt-6"><p class="text-sm text-indigo-800"><strong>활용:</strong> 고객 세분화, 색상 군집, 문서 토픽 기초 클러스터</p></div>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold mb-4">반복 갱신 과정</h3>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <svg viewBox="0 0 420 170" class="w-full h-44">
+                  <text x="210" y="20" text-anchor="middle" font-size="12">할당(Assignment) ↔ 갱신(Update)</text>
+                  ${[[80,90],[200,110],[320,80]].map(([x,y],i)=>`
+                    <circle cx="${x}" cy="${y}" r="8" fill="${['#3B82F6','#10B981','#F59E0B'][i]}"/>
+                    <text x="${x}" y="${y+20}" text-anchor="middle" font-size="10">C${i+1}</text>
+                  `).join('')}
+                  ${Array.from({length:12}).map((_,i)=>{
+                    const px = 40 + (i%6)*60; const py = 130 - Math.floor(i/6)*40;
+                    return `<circle cx="${px}" cy="${py}" r="3" fill="#9CA3AF"/>`;
+                  }).join('')}
+                </svg>
+              </div>
+            </div>
+          </div>
+        `}
+      };
+
+      const detail = details[type];
+      if (detail) {
+        title.innerHTML = detail.title;
+        content.innerHTML = detail.content;
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking overlay
+    document.getElementById('detailModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      showSection('learning');
+    });
+
+    // Smooth scroll to top on tab click
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
